@@ -7,7 +7,7 @@
   "tagline": "spiking neural networks & neuromorphic computation",
   "institution": "The Open University of Israel · Dept. of Mathematics & Computer Science",
   "lead": "Building brain-inspired models of perception and learning — bridging biological neural dynamics and the hardware that could one day run them.",
-  "authorHighlight": "Cohen Duwek H.",
+  "authorHighlight": "Cohen Duwek",
   "bio": [
     "Dr. Hadar Cohen Duwek is a researcher and lecturer in computational neuroscience, studying how the brain represents and learns from sensory information — and how those principles can be translated into efficient, brain-inspired computing.",
     "Her work spans spiking neural networks, neuromorphic hardware, and models of perception, combining theory, simulation, and close attention to biological plausibility. She teaches and mentors students at the Open University of Israel, where she leads research bridging neuroscience and machine learning.",

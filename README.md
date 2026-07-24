@@ -50,7 +50,31 @@ Content lives in plain data files (a friendly CMS will wrap these next):
 - [`src/data/courses.json`](src/data/courses.json) — Open University courses
 - `public/hadar-profile.jpg` — profile photo
 
+## Publications sync (Google Scholar)
+
+Publications auto-update from Hadar's Scholar profile (`user=0kq7pdcAAAAJ`) via
+[`scripts/fetch-scholar.mjs`](scripts/fetch-scholar.mjs), which runs **at build time and
+weekly** (see the deploy workflow). It rewrites `publications.json` before each build.
+
+To activate it, add one repository secret (Settings → Secrets and variables → Actions):
+
+- **`SERPAPI_KEY`** — a free [SerpAPI](https://serpapi.com/) key (the free tier covers a
+  weekly sync many times over).
+
+Without the secret the sync is skipped and the committed `publications.json` is used, so
+the site never breaks. Trigger a manual refresh anytime from the Actions tab
+("Deploy to GitHub Pages" → Run workflow), or locally with `SERPAPI_KEY=… npm run sync:scholar`.
+
+## Deploying / taking offline
+
+- **Publish:** re-enable the workflow (`gh workflow enable deploy.yml`) and Pages
+  (Settings → Pages → Source: GitHub Actions), then push.
+- **Unpublish:** the site is currently **offline** — Pages is unpublished and the deploy
+  workflow is disabled.
+
 ## Status
 
-✅ Live on GitHub Pages · ⏳ next: automatic Google Scholar sync, then the editing CMS.
+✅ Site development complete (build, deploy pipeline, Scholar sync, 404) · currently **offline**
+while content is finalized · ⏳ next: the editing **CMS**, then launch.
+Awaiting from Hadar: final bio + CV, ORCID/GitHub links, confirmation of her role on course 22938.
 Original design mockup: [`design/mockup-v1.html`](design/mockup-v1.html).

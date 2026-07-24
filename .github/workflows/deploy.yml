@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Weekly on Monday 04:00 UTC — refresh publications from Google Scholar
+    - cron: '0 4 * * 1'
   workflow_dispatch:
 
 # Allow GITHUB_TOKEN to deploy to Pages
@@ -22,6 +25,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync publications from Google Scholar
+        # No-op if SERPAPI_KEY secret is not set (keeps committed publications.json).
+        env:
+          SERPAPI_KEY: ${{ secrets.SERPAPI_KEY }}
+          SCHOLAR_AUTHOR_ID: '0kq7pdcAAAAJ'
+        run: node scripts/fetch-scholar.mjs
       - name: Build with Astro
         uses: withastro/action@v3
         with:
