@@ -1,0 +1,83 @@
+backend:
+  name: github
+  repo: roieco1/hadar-cohen-duwek
+  branch: main
+  # No OAuth server needed: sign in with a GitHub access token
+  # (see README → "Editing the site"). Add `base_url` here only if you
+  # later set up an OAuth relay for a one-click "Log in with GitHub" button.
+
+# Lets you edit locally without signing in — run `npx @sveltia/cms-server`
+# alongside `npm run dev`, then open /admin (only active on localhost).
+local_backend: true
+
+site_url: https://roieco1.github.io/hadar-cohen-duwek/
+display_url: https://roieco1.github.io/hadar-cohen-duwek/
+
+# Uploaded images are saved into /public and referenced from the site root.
+media_folder: public
+public_folder: /
+
+collections:
+  - name: content
+    label: Site content
+    editor:
+      preview: false
+    files:
+      - name: profile
+        label: Profile & Contact
+        file: /src/data/site.json
+        description: Name, hero text, bio, research interests, photo, and contact details.
+        fields:
+          - { label: Full name, name: name, widget: string }
+          - { label: Name in Hebrew, name: hebrewName, widget: string }
+          - { label: Eyebrow (small label above name), name: eyebrow, widget: string }
+          - { label: Field / speciality, name: field, widget: string }
+          - { label: Tagline (after the field), name: tagline, widget: string }
+          - { label: Institution line, name: institution, widget: string }
+          - { label: Hero lead sentence, name: lead, widget: text }
+          - { label: Profile photo, name: photo, widget: image }
+          - label: Bio paragraphs
+            name: bio
+            widget: list
+            field: { label: Paragraph, name: paragraph, widget: text }
+          - label: Research interests
+            name: interests
+            widget: list
+            field: { label: Interest, name: interest, widget: string }
+          - { label: Email, name: email, widget: string }
+          - { label: Office, name: office, widget: string }
+          - { label: Office hours, name: officeHours, widget: string }
+          - { label: Contact blurb, name: contactBlurb, widget: text }
+          - { label: Google Scholar URL, name: scholarUrl, widget: string }
+          - label: Professional links
+            name: links
+            widget: list
+            summary: '{{fields.label}}'
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: URL, name: url, widget: string }
+          - label: Your name in author lists (to bold it)
+            name: authorHighlight
+            widget: string
+            hint: How your surname appears in publication author lists, e.g. "Cohen Duwek"
+
+      - name: courses
+        label: Courses
+        file: /src/data/courses.json
+        description: Courses shown in the Teaching section. Each links to its Open University page.
+        fields:
+          - label: Courses
+            name: items
+            widget: list
+            summary: '{{fields.number}} — {{fields.title}}'
+            fields:
+              - { label: Course number, name: number, widget: string }
+              - { label: Title (English), name: title, widget: string }
+              - { label: Title (Hebrew), name: hebrew, widget: string }
+              - { label: Your role, name: role, widget: string }
+              - { label: Description, name: desc, widget: text }
+              - label: Tags (level, credits, etc.)
+                name: meta
+                widget: list
+                field: { label: Tag, name: tag, widget: string }
+              - { label: Course / syllabus URL, name: url, widget: string }

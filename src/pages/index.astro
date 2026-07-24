@@ -6,7 +6,7 @@ import courses from '../data/courses.json';
 
 const base = import.meta.env.BASE_URL;
 const asset = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
-const photo = asset('hadar-profile.jpg');
+const photo = asset(site.photo);
 const typeLabel = { conf: 'Conf', journal: 'Journal', preprint: 'Preprint' };
 
 const boldAuthors = (authors) =>
@@ -47,7 +47,7 @@ const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <span class="eyebrow">{site.eyebrow}</span>
-          <h1 set:html={site.nameHtml}></h1>
+          <h1>{site.name}</h1>
           <div class="heb">{site.hebrewName}</div>
           <div class="role"><b>{site.field}</b> — {site.tagline}</div>
           <div class="inst">{site.institution}</div>
@@ -131,7 +131,7 @@ const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
         <div class="sec-head"><span class="sec-num">03</span><h2>Teaching</h2></div>
         <p style="color:var(--muted);max-width:60ch;margin:0 0 4px">Graduate courses at The Open University of Israel. Each card links to the official course page and syllabus.</p>
         <div class="courses">
-          {courses.map((c) => (
+          {courses.items.map((c) => (
             <a class="course card" href={c.url} target="_blank" rel="noopener">
               <div class="course-top">
                 <span class="course-no">{c.number}</span>
@@ -167,7 +167,7 @@ const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
           <div>
             <p style="color:var(--muted);margin-top:0">{site.contactBlurb}</p>
             <div class="social">
-              {Object.entries(site.links).map(([label, url]) => (
+              {site.links.map(({ label, url }) => (
                 <a class="btn" href={url} target="_blank" rel="noopener">{label}</a>
               ))}
             </div>

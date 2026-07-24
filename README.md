@@ -41,14 +41,39 @@ npm run build    # production build to dist/
 npm run preview  # preview the production build
 ```
 
-## Editing content
+## Editing the site (CMS)
 
-Content lives in plain data files (a friendly CMS will wrap these next):
+The site has a built-in, form-based editor (**Sveltia CMS**) at **`/admin`** — on the live
+site that's `https://roieco1.github.io/hadar-cohen-duwek/admin/`. No code, no separate
+service, no OAuth server. Editable: **Profile & Contact** (bio, interests, photo, links,
+email) and **Courses**. Saving commits to the repo and the site republishes automatically.
 
-- [`src/data/site.json`](src/data/site.json) — name, bio, interests, contact, links
-- [`src/data/publications.json`](src/data/publications.json) — papers (to be auto-synced from Scholar)
-- [`src/data/courses.json`](src/data/courses.json) — Open University courses
-- `public/hadar-profile.jpg` — profile photo
+> Publications are **not** edited here — they come from the automatic Google Scholar sync.
+
+### Giving Hadar access (one-time)
+
+1. Add her GitHub account as a repo collaborator: repo → **Settings → Collaborators → Add people**
+   (so only she and the owner can edit).
+2. She creates a **fine-grained personal access token**: GitHub → Settings → Developer settings →
+   **Fine-grained tokens** → *Repository access:* only `hadar-cohen-duwek` → *Permissions:*
+   **Contents → Read and write**. Copy the token.
+
+### Editing
+
+1. Open the site's `/admin` page.
+2. Click **Sign in with Token** and paste the token (browsers remember it).
+3. Edit the fields, click **Save/Publish** → the change commits and the site rebuilds (~1 min).
+
+Content still lives as plain files if you prefer editing directly:
+[`src/data/site.json`](src/data/site.json), [`src/data/courses.json`](src/data/courses.json),
+and `public/hadar-profile.jpg`.
+
+### Editing locally (developer)
+
+```bash
+npx @sveltia/cms-server   # in one terminal (local backend proxy)
+npm run dev               # in another, then open /admin — no token needed
+```
 
 ## Publications sync (Google Scholar)
 
@@ -74,7 +99,7 @@ the site never breaks. Trigger a manual refresh anytime from the Actions tab
 
 ## Status
 
-✅ Site development complete (build, deploy pipeline, Scholar sync, 404) · currently **offline**
-while content is finalized · ⏳ next: the editing **CMS**, then launch.
+✅ Site + editing CMS complete (build, deploy pipeline, Scholar sync, 404, `/admin`) ·
+currently **offline** while content is finalized · ⏳ next: finalize content and launch.
 Awaiting from Hadar: final bio + CV, ORCID/GitHub links, confirmation of her role on course 22938.
 Original design mockup: [`design/mockup-v1.html`](design/mockup-v1.html).

@@ -1,12 +1,12 @@
 {
   "name": "Hadar Cohen Duwek",
-  "nameHtml": "Hadar Cohen&nbsp;Duwek",
   "hebrewName": "ד״ר הדר כהן דוויק",
   "eyebrow": "Researcher · Lecturer",
   "field": "Computational Neuroscience",
   "tagline": "spiking neural networks & neuromorphic computation",
   "institution": "The Open University of Israel · Dept. of Mathematics & Computer Science",
   "lead": "Building brain-inspired models of perception and learning — bridging biological neural dynamics and the hardware that could one day run them.",
+  "photo": "hadar-profile.jpg",
   "authorHighlight": "Cohen Duwek",
   "bio": [
     "Dr. Hadar Cohen Duwek is a researcher and lecturer in computational neuroscience, studying how the brain represents and learns from sensory information — and how those principles can be translated into efficient, brain-inspired computing.",
@@ -25,8 +25,8 @@
   "officeHours": "By appointment",
   "contactBlurb": "For research collaborations, student inquiries, talks, and media — email is the best way to reach me. Professional profiles below.",
   "scholarUrl": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en",
-  "links": {
-    "Google Scholar": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en",
-    "LinkedIn": "https://www.linkedin.com/in/hadar-cohen-duwek-0424224/"
-  }
+  "links": [
+    { "label": "Google Scholar", "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/hadar-cohen-duwek-0424224/" }
+  ]
 }
