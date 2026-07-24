@@ -1,0 +1,502 @@
+<title>Dr. Hadar Cohen Duwek — Computational Neuroscience</title>
+<style>
+  :root{
+    --bg:#F1F4F8; --surface:#FFFFFF; --surface-2:#F6F8FB;
+    --text:#12202E; --muted:#5A6A78; --faint:#8B98A5;
+    --line:#DCE3EB; --line-soft:#E8EDF3;
+    --accent:#12756E; --accent-strong:#0E5E58; --accent-soft:rgba(18,117,110,.10);
+    --spike:#17968D;
+    --shadow:0 1px 2px rgba(18,32,46,.04),0 8px 30px rgba(18,32,46,.06);
+    --maxw:1120px;
+    --serif:"Palatino Linotype","Book Antiqua",Palatino,Georgia,"Times New Roman",serif;
+    --sans:system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --mono:"Cascadia Code","SF Mono",ui-monospace,Consolas,"Liberation Mono",monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0B0F16; --surface:#121927; --surface-2:#0F1521;
+      --text:#E7ECF3; --muted:#96A3B2; --faint:#69788A;
+      --line:#212C3B; --line-soft:#1A2432;
+      --accent:#43C5BA; --accent-strong:#5FD6CC; --accent-soft:rgba(67,197,186,.13);
+      --spike:#5FD6CC;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#F1F4F8; --surface:#FFFFFF; --surface-2:#F6F8FB;
+    --text:#12202E; --muted:#5A6A78; --faint:#8B98A5;
+    --line:#DCE3EB; --line-soft:#E8EDF3;
+    --accent:#12756E; --accent-strong:#0E5E58; --accent-soft:rgba(18,117,110,.10);
+    --spike:#17968D; --shadow:0 1px 2px rgba(18,32,46,.04),0 8px 30px rgba(18,32,46,.06);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B0F16; --surface:#121927; --surface-2:#0F1521;
+    --text:#E7ECF3; --muted:#96A3B2; --faint:#69788A;
+    --line:#212C3B; --line-soft:#1A2432;
+    --accent:#43C5BA; --accent-strong:#5FD6CC; --accent-soft:rgba(67,197,186,.13);
+    --spike:#5FD6CC; --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 40px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--accent);font-weight:600}
+  h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;line-height:1.12;margin:0}
+  section{padding:76px 0;border-top:1px solid var(--line-soft)}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
+  .sec-head h2{font-size:1.9rem}
+  .sec-num{font-family:var(--mono);font-size:.8rem;color:var(--faint)}
+
+  /* ---------- nav ---------- */
+  header.nav{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--bg) 82%,transparent);
+    backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line-soft)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:600}
+  .mono-badge{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+    background:var(--accent-soft);color:var(--accent);font-family:var(--mono);
+    font-size:.82rem;font-weight:700;border:1px solid var(--line)}
+  .brand small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--faint);font-weight:500}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{font-size:.9rem;color:var(--muted);transition:color .2s}
+  .nav-links a:hover{color:var(--text)}
+  .nav-tools{display:flex;align-items:center;gap:10px}
+  .icon-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);
+    background:var(--surface);color:var(--muted);display:grid;place-items:center;cursor:pointer;
+    transition:.2s}
+  .icon-btn:hover{color:var(--text);border-color:var(--accent)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:500;
+    padding:9px 16px;border-radius:9px;border:1px solid var(--line);background:var(--surface);
+    color:var(--text);cursor:pointer;transition:.2s}
+  .btn:hover{border-color:var(--accent);color:var(--accent)}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .btn.primary{color:#08110F}
+  @media (prefers-color-scheme:dark){.btn.primary{color:#08110F}}
+  .btn.primary:hover{background:var(--accent-strong);border-color:var(--accent-strong);color:#fff}
+  @media (prefers-color-scheme:dark){.btn.primary:hover{color:#08110F}}
+  .lock{display:inline-flex;align-items:center;gap:7px;font-size:.82rem;color:var(--faint);
+    font-family:var(--mono);padding:7px 12px;border:1px dashed var(--line);border-radius:9px;cursor:pointer}
+  .lock:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:72px 0 60px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center}
+  .hero h1{font-size:clamp(2.7rem,5.2vw,4.15rem);letter-spacing:-.01em;margin:16px 0 6px}
+  .hero .heb{font-family:var(--serif);font-size:1.5rem;color:var(--muted);direction:rtl;margin-bottom:20px}
+  .role{font-size:1.12rem;color:var(--text);margin-bottom:8px}
+  .role b{color:var(--accent);font-weight:600}
+  .inst{color:var(--muted);margin-bottom:24px}
+  .lead{font-size:1.05rem;color:var(--muted);max-width:46ch;margin-bottom:30px}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px}
+  .metrics{display:flex;gap:30px;margin-top:34px;padding-top:24px;border-top:1px solid var(--line-soft)}
+  .metric .n{font-family:var(--mono);font-size:1.35rem;font-weight:700;color:var(--text);
+    font-variant-numeric:tabular-nums}
+  .metric .l{font-size:.76rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+
+  .portrait{position:relative}
+  .portrait .frame{position:relative;aspect-ratio:4/5;border-radius:18px;overflow:hidden;
+    background:linear-gradient(160deg,var(--surface-2),var(--surface));border:1px solid var(--line);
+    box-shadow:var(--shadow);display:grid;place-items:center}
+  .portrait canvas{position:absolute;inset:0;width:100%;height:100%}
+  .mono-portrait{position:relative;z-index:2;font-family:var(--serif);font-size:5rem;color:var(--accent);
+    opacity:.9;text-align:center}
+  .portrait .tag{position:absolute;left:14px;bottom:14px;z-index:3;font-family:var(--mono);
+    font-size:.68rem;color:var(--muted);background:color-mix(in srgb,var(--surface) 80%,transparent);
+    padding:5px 10px;border-radius:7px;border:1px solid var(--line);backdrop-filter:blur(6px)}
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+  .bio p{color:var(--muted);margin:0 0 16px}
+  .bio p:first-child{color:var(--text);font-size:1.06rem}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .tag{font-size:.8rem;padding:5px 11px;border-radius:20px;background:var(--accent-soft);
+    color:var(--accent);border:1px solid transparent;font-family:var(--mono)}
+  .cv{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;
+    box-shadow:var(--shadow)}
+  .cv h3{font-size:1rem;font-family:var(--sans);font-weight:600;margin-bottom:14px}
+  .tl{position:relative;padding-left:20px}
+  .tl::before{content:"";position:absolute;left:4px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tl-item{position:relative;padding:0 0 18px}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{content:"";position:absolute;left:-19px;top:6px;width:9px;height:9px;border-radius:50%;
+    background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .tl-item .yr{font-family:var(--mono);font-size:.74rem;color:var(--accent)}
+  .tl-item .ti{font-weight:600;font-size:.94rem}
+  .tl-item .pl{font-size:.86rem;color:var(--muted)}
+
+  /* ---------- publications ---------- */
+  .pub-note{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.74rem;
+    color:var(--muted);background:var(--surface);border:1px solid var(--line);padding:6px 12px;border-radius:20px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .filters{display:flex;gap:8px;margin:22px 0 8px;flex-wrap:wrap}
+  .chip{font-size:.82rem;padding:6px 14px;border-radius:20px;border:1px solid var(--line);
+    background:var(--surface);color:var(--muted);cursor:pointer;transition:.2s}
+  .chip:hover{color:var(--text)}
+  .chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .chip.on{color:#08110F}
+  @media (prefers-color-scheme:dark){.chip.on{color:#08110F}}
+  .pub{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:start;padding:22px 4px;
+    border-bottom:1px solid var(--line-soft)}
+  .pub .yr{font-family:var(--mono);font-size:.82rem;color:var(--faint);padding-top:2px;
+    font-variant-numeric:tabular-nums}
+  .pub .ti{font-family:var(--serif);font-size:1.14rem;line-height:1.3;margin-bottom:6px}
+  .pub:hover .ti{color:var(--accent)}
+  .pub .au{font-size:.9rem;color:var(--muted)}
+  .pub .au b{color:var(--text);font-weight:600}
+  .pub .ve{font-size:.86rem;color:var(--muted);margin-top:4px;font-style:italic}
+  .pub .links{display:flex;gap:14px;margin-top:10px;font-family:var(--mono);font-size:.75rem}
+  .pub .links a{color:var(--accent);border-bottom:1px solid transparent}
+  .pub .links a:hover{border-color:var(--accent)}
+  .type-badge{font-family:var(--mono);font-size:.66rem;letter-spacing:.05em;text-transform:uppercase;
+    padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted);white-space:nowrap;margin-right:8px}
+  .cites{text-align:right;white-space:nowrap}
+  .cites .n{font-family:var(--mono);font-size:1.15rem;font-weight:700;color:var(--text);
+    font-variant-numeric:tabular-nums}
+  .cites .l{font-size:.68rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em}
+  .pub-more{margin-top:26px;text-align:center}
+
+  /* ---------- lab ---------- */
+  .lab-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:26px;box-shadow:var(--shadow)}
+  .card h3{font-size:1.15rem;margin-bottom:12px}
+  .card p{color:var(--muted);margin:0 0 14px}
+  .people{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+  .person{display:flex;align-items:center;gap:13px;padding:11px 8px;border-radius:10px;transition:.2s}
+  .person:hover{background:var(--surface-2)}
+  .av{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);
+    font-weight:700;font-size:.82rem;background:var(--accent-soft);color:var(--accent);flex:none}
+  .person .nm{font-weight:600;font-size:.92rem}
+  .person .rl{font-size:.8rem;color:var(--muted)}
+  .join{border:1px dashed var(--accent);background:var(--accent-soft)}
+  .join h3{color:var(--accent)}
+
+  /* ---------- contact ---------- */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .ci{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+  .ci .k{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);
+    display:grid;place-items:center;flex:none}
+  .ci .lbl{font-size:.74rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+  .ci .val{font-weight:500}
+  .social{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px}
+  .foot-in{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:.84rem;color:var(--muted)}
+  .foot-in .edit{font-family:var(--mono);font-size:.78rem;color:var(--faint);cursor:pointer;
+    display:inline-flex;gap:7px;align-items:center}
+  .foot-in .edit:hover{color:var(--accent)}
+  svg.ic{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+  @media (max-width:860px){
+    .hero-grid,.about-grid,.lab-grid,.contact-grid{grid-template-columns:1fr}
+    .portrait{order:-1;max-width:320px}
+    .nav-links{display:none}
+    .pub{grid-template-columns:1fr auto;gap:12px}
+    .pub .yr{grid-column:1;grid-row:1;display:inline}
+    section{padding:56px 0}
+  }
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top">
+      <span class="mono-badge">HCD</span>
+      <span>Hadar Cohen Duwek<small>Computational Neuroscience</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#lab">Lab</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-tools">
+      <span class="lock" id="editBtn"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Edit site</span>
+      <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle theme">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Researcher · Lecturer</span>
+        <h1>Hadar Cohen&nbsp;Duwek</h1>
+        <div class="heb">ד״ר הדר כהן דואק</div>
+        <div class="role"><b>Computational Neuroscience</b> — spiking neural networks &amp; neuromorphic computation</div>
+        <div class="inst">The Open University of Israel · Dept. of Mathematics &amp; Computer Science</div>
+        <p class="lead">Building brain-inspired models of perception and learning — bridging biological neural dynamics and the hardware that could one day run them.</p>
+        <div class="hero-cta">
+          <a class="btn primary" href="#publications"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>View Publications</a>
+          <a class="btn" href="#" id="scholar"><svg class="ic" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17"/><path d="M5 12.5V17a7 5 0 0 0 14 0v-4.5"/></svg>Google Scholar</a>
+          <a class="btn" href="#contact"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>Contact</a>
+        </div>
+        <div class="metrics">
+          <div class="metric"><div class="n">144</div><div class="l">Citations</div></div>
+          <div class="metric"><div class="n">7</div><div class="l">h-index</div></div>
+          <div class="metric"><div class="n">5</div><div class="l">i10-index</div></div>
+        </div>
+      </div>
+      <div class="portrait">
+        <div class="frame">
+          <canvas id="net"></canvas>
+          <div class="mono-portrait">HCD</div>
+          <span class="tag">profile photo · placeholder</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+      <div class="about-grid">
+        <div class="bio">
+          <p>Dr. Hadar Cohen Duwek is a researcher and lecturer in computational neuroscience, studying how the brain represents and learns from sensory information — and how those principles can be translated into efficient, brain-inspired computing.</p>
+          <p>Her work spans spiking neural networks, neuromorphic hardware, and models of perception, combining theory, simulation, and close attention to biological plausibility. She teaches and mentors students at the Open University of Israel, where she leads research bridging neuroscience and machine learning.</p>
+          <p><em>Placeholder bio for the mockup — final wording and full CV to come.</em></p>
+          <div class="tags">
+            <span class="tag">Spiking Neural Networks</span>
+            <span class="tag">Neuromorphic Computing</span>
+            <span class="tag">Color Perception</span>
+            <span class="tag">Perceptual Filling-in</span>
+            <span class="tag">Event-based Vision</span>
+          </div>
+        </div>
+        <div class="cv" id="research">
+          <h3>Academic path</h3>
+          <div class="tl">
+            <div class="tl-item"><div class="yr">present</div><div class="ti">Researcher &amp; Lecturer</div><div class="pl">The Open University of Israel</div></div>
+            <div class="tl-item"><div class="yr">recent</div><div class="ti">Postdoctoral Researcher</div><div class="pl">Neuro-Biomorphic Engineering Lab (NBEL)</div></div>
+            <div class="tl-item"><div class="yr">Ph.D.</div><div class="ti">Electrical Engineering</div><div class="pl">Tel Aviv University · Vision Research Lab</div></div>
+            <div class="tl-item"><div class="yr">—</div><div class="ti">Download full CV</div><div class="pl">PDF · dates to confirm · editable by owner</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Publications</h2></div>
+      <span class="pub-note"><span class="dot"></span> Synced automatically from Google Scholar · last updated 24 Jul 2026</span>
+      <div class="filters">
+        <span class="chip on" data-f="all">All</span>
+        <span class="chip" data-f="journal">Journal</span>
+        <span class="chip" data-f="conf">Conference</span>
+      </div>
+
+      <div class="pub" data-t="conf">
+        <div class="yr">2021</div>
+        <div><div class="ti">Image reconstruction from neuromorphic event cameras using Laplacian-prediction and Poisson integration with spiking and artificial neural networks</div>
+          <div class="au"><b>Cohen Duwek H.</b>, et al.</div>
+          <div class="ve"><span class="type-badge">Conf</span>IEEE/CVF CVPR 2021 · Event-based Vision Workshop</div>
+          <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Scholar</a><a href="#">Cite</a></div>
+        </div>
+        <div class="cites"><div class="n">40</div><div class="l">cites</div></div>
+      </div>
+
+      <div class="pub" data-t="conf">
+        <div class="yr">2021</div>
+        <div><div class="ti">Biologically plausible spiking neural networks for perceptual filling-in</div>
+          <div class="au"><b>Cohen Duwek H.</b>, et al.</div>
+          <div class="ve"><span class="type-badge">Conf</span>Proc. Annual Meeting of the Cognitive Science Society (CogSci)</div>
+          <div class="links"><a href="#">PDF</a><a href="#">Scholar</a><a href="#">Cite</a></div>
+        </div>
+        <div class="cites"><div class="n">21</div><div class="l">cites</div></div>
+      </div>
+
+      <div class="pub" data-t="journal">
+        <div class="yr">2022</div>
+        <div><div class="ti">Computational modeling of color perception with biologically plausible spiking neural networks</div>
+          <div class="au"><b>Cohen Duwek H.</b>, et al.</div>
+          <div class="ve"><span class="type-badge">Journal</span>PLOS Computational Biology · 18(10)</div>
+          <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Scholar</a><a href="#">Cite</a></div>
+        </div>
+        <div class="cites"><div class="n">15</div><div class="l">cites</div></div>
+      </div>
+
+      <div class="pub" data-t="journal">
+        <div class="yr">2019</div>
+        <div><div class="ti">A compound computational model for filling-in processes triggered by edges: watercolor illusions</div>
+          <div class="au"><b>Cohen Duwek H.</b>, et al.</div>
+          <div class="ve"><span class="type-badge">Journal</span>Frontiers in Neuroscience · 13</div>
+          <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Scholar</a><a href="#">Cite</a></div>
+        </div>
+        <div class="cites"><div class="n">10</div><div class="l">cites</div></div>
+      </div>
+
+      <div class="pub" data-t="journal">
+        <div class="yr">2011</div>
+        <div><div class="ti">A biologically-based algorithm for companding computerized tomography (CT) images</div>
+          <div class="au"><b>Cohen Duwek H.</b>, et al.</div>
+          <div class="ve"><span class="type-badge">Journal</span>Computers in Biology and Medicine · 41(11)</div>
+          <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Scholar</a><a href="#">Cite</a></div>
+        </div>
+        <div class="cites"><div class="n">11</div><div class="l">cites</div></div>
+      </div>
+
+      <div class="pub-more"><a class="btn" href="#">View full publication list on Google Scholar →</a></div>
+      <p style="font-family:var(--mono);font-size:.72rem;color:var(--faint);margin-top:20px;text-align:center">
+        Real records from her Google Scholar profile — the live site keeps these updated automatically.</p>
+    </div>
+  </section>
+
+  <!-- LAB -->
+  <section id="lab">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Lab &amp; Students</h2></div>
+      <div class="lab-grid">
+        <div class="card">
+          <h3>The Cohen Duwek Lab</h3>
+          <p>We study neural computation from two directions at once: reverse-engineering how biological circuits process information, and building spiking models that capture those principles in silico. Projects span computational vision, learning dynamics, and neuromorphic deployment.</p>
+          <p style="color:var(--text);font-weight:600;font-size:.86rem;text-transform:uppercase;letter-spacing:.06em">Current members</p>
+          <div class="people">
+            <div class="person"><span class="av">RA</span><div><div class="nm">Research Assistant</div><div class="rl">M.Sc. · spiking vision models</div></div></div>
+            <div class="person"><span class="av">PhD</span><div><div class="nm">Ph.D. Student</div><div class="rl">Neuromorphic learning rules</div></div></div>
+            <div class="person"><span class="av">MS</span><div><div class="nm">M.Sc. Student</div><div class="rl">Neural coding &amp; inference</div></div></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:26px">
+          <div class="card">
+            <h3 style="font-size:1rem;font-family:var(--sans)">Alumni &amp; collaborators</h3>
+            <p style="margin:0">Former students and collaborating labs, with links to their pages and current positions.</p>
+          </div>
+          <div class="card join">
+            <h3>Join the lab</h3>
+            <p style="margin-bottom:16px">Prospective students interested in computational neuroscience, SNNs, or neuromorphic computing are welcome to reach out.</p>
+            <a class="btn primary" href="#contact">Get in touch →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Contact</h2></div>
+      <div class="contact-grid">
+        <div>
+          <div class="ci"><span class="k"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></span><div><div class="lbl">Email</div><div class="val">hadar.cohenduwek@openu.ac.il</div></div></div>
+          <div class="ci"><span class="k"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><div class="lbl">Office</div><div class="val">The Open University, Ra'anana</div></div></div>
+          <div class="ci"><span class="k"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><div><div class="lbl">Office hours</div><div class="val">By appointment</div></div></div>
+        </div>
+        <div>
+          <p style="color:var(--muted);margin-top:0">For research collaborations, student inquiries, talks, and media — email is the best way to reach me. Professional profiles below.</p>
+          <div class="social">
+            <a class="btn" href="#">Google Scholar</a>
+            <a class="btn" href="#">ORCID</a>
+            <a class="btn" href="#">LinkedIn</a>
+            <a class="btn" href="#">GitHub</a>
+            <a class="btn" href="#">University page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>© 2026 Hadar Cohen Duwek · Computational Neuroscience</span>
+    <span class="edit" id="editBtn2"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Owner login</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* theme toggle */
+  var root=document.documentElement;
+  function current(){return root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');}
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    root.setAttribute('data-theme',current()==='dark'?'light':'dark');
+    setTimeout(resize,50);
+  });
+
+  /* publication filter */
+  document.querySelectorAll('.chip').forEach(function(c){
+    c.addEventListener('click',function(){
+      document.querySelectorAll('.chip').forEach(function(x){x.classList.remove('on');});
+      c.classList.add('on');
+      var f=c.dataset.f;
+      document.querySelectorAll('.pub').forEach(function(p){
+        p.style.display=(f==='all'||p.dataset.t===f)?'':'none';
+      });
+    });
+  });
+
+  /* edit affordance (mockup only) */
+  function editMsg(){alert('Owner login — in the real site this opens a secure sign-in so Hadar can edit content (bio, students, links). Public visitors never see edit controls.');}
+  document.getElementById('editBtn').addEventListener('click',editMsg);
+  document.getElementById('editBtn2').addEventListener('click',editMsg);
+
+  /* neural signal canvas motif */
+  var cv=document.getElementById('net'),ctx=cv.getContext('2d'),W,H,DPR;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var nodes=[],edges=[],pulses=[];
+  function accent(){return getComputedStyle(root).getPropertyValue('--spike').trim()||'#17968D';}
+  function build(){
+    nodes=[];edges=[];pulses=[];
+    var n=22;
+    for(var i=0;i<n;i++)nodes.push({x:Math.random(),y:Math.random(),vx:(Math.random()-.5)*.0006,vy:(Math.random()-.5)*.0006});
+    for(var a=0;a<n;a++)for(var b=a+1;b<n;b++){
+      var dx=nodes[a].x-nodes[b].x,dy=nodes[a].y-nodes[b].y;
+      if(Math.sqrt(dx*dx+dy*dy)<.30)edges.push([a,b]);
+    }
+  }
+  function resize(){
+    DPR=Math.min(devicePixelRatio||1,2);
+    var r=cv.getBoundingClientRect();W=r.width;H=r.height;
+    cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);
+  }
+  function spawnPulse(){
+    if(edges.length===0)return;
+    var e=edges[(Math.random()*edges.length)|0];
+    pulses.push({e:e,t:0,sp:.006+Math.random()*.01});
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var col=accent();
+    for(var i=0;i<edges.length;i++){
+      var A=nodes[edges[i][0]],B=nodes[edges[i][1]];
+      ctx.strokeStyle=col;ctx.globalAlpha=.10;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(A.x*W,A.y*H);ctx.lineTo(B.x*W,B.y*H);ctx.stroke();
+    }
+    for(var j=0;j<nodes.length;j++){
+      var nd=nodes[j];
+      if(!reduce){nd.x+=nd.vx;nd.y+=nd.vy;
+        if(nd.x<.05||nd.x>.95)nd.vx*=-1;if(nd.y<.05||nd.y>.95)nd.vy*=-1;}
+      ctx.globalAlpha=.55;ctx.fillStyle=col;
+      ctx.beginPath();ctx.arc(nd.x*W,nd.y*H,1.8,0,7);ctx.fill();
+    }
+    for(var k=pulses.length-1;k>=0;k--){
+      var p=pulses[k];p.t+=p.sp;
+      if(p.t>=1){pulses.splice(k,1);continue;}
+      var a=nodes[p.e[0]],b=nodes[p.e[1]];
+      var x=(a.x+(b.x-a.x)*p.t)*W,y=(a.y+(b.y-a.y)*p.t)*H;
+      ctx.globalAlpha=.9;ctx.fillStyle=col;
+      ctx.beginPath();ctx.arc(x,y,2.6,0,7);ctx.fill();
+      ctx.globalAlpha=.25;ctx.beginPath();ctx.arc(x,y,6,0,7);ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  build();resize();draw();
+  addEventListener('resize',resize);
+  if(!reduce)setInterval(spawnPulse,650);
+  else{spawnPulse();spawnPulse();draw();}
+})();
+</script>
