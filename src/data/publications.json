@@ -1,0 +1,51 @@
+{
+  "lastUpdated": "2026-07-24",
+  "profileUrl": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en",
+  "items": [
+    {
+      "title": "Image reconstruction from neuromorphic event cameras using Laplacian-prediction and Poisson integration with spiking and artificial neural networks",
+      "authors": "Cohen Duwek H., et al.",
+      "venue": "IEEE/CVF CVPR 2021 · Event-based Vision Workshop",
+      "year": 2021,
+      "type": "conf",
+      "citations": 40,
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    },
+    {
+      "title": "Biologically plausible spiking neural networks for perceptual filling-in",
+      "authors": "Cohen Duwek H., et al.",
+      "venue": "Proc. Annual Meeting of the Cognitive Science Society (CogSci)",
+      "year": 2021,
+      "type": "conf",
+      "citations": 21,
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    },
+    {
+      "title": "Computational modeling of color perception with biologically plausible spiking neural networks",
+      "authors": "Cohen Duwek H., et al.",
+      "venue": "PLOS Computational Biology · 18(10)",
+      "year": 2022,
+      "type": "journal",
+      "citations": 15,
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    },
+    {
+      "title": "A compound computational model for filling-in processes triggered by edges: watercolor illusions",
+      "authors": "Cohen Duwek H., et al.",
+      "venue": "Frontiers in Neuroscience · 13",
+      "year": 2019,
+      "type": "journal",
+      "citations": 10,
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    },
+    {
+      "title": "A biologically-based algorithm for companding computerized tomography (CT) images",
+      "authors": "Cohen Duwek H., et al.",
+      "venue": "Computers in Biology and Medicine · 41(11)",
+      "year": 2011,
+      "type": "journal",
+      "citations": 11,
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    }
+  ]
+}

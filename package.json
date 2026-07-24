@@ -1,0 +1,15 @@
+{
+  "name": "hadar-cohen-duwek",
+  "type": "module",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync:scholar": "node scripts/fetch-scholar.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.1.3"
+  }
+}

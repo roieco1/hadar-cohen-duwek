@@ -1,0 +1,20 @@
+[
+  {
+    "number": "22960",
+    "title": "Neuromorphic Computing Architectures",
+    "hebrew": "ארכיטקטורות חישוב בהשראת המוח",
+    "role": "Teaching coordinator",
+    "desc": "Foundations of neuromorphic (brain-inspired) engineering — spiking neural networks, neuro-synaptic cores, and cognitive computing paradigms. No prior neuroscience background required.",
+    "meta": ["M.Sc.", "4 credit points", "Computer Science · Machine Learning"],
+    "url": "https://www.openu.ac.il/courses/22960.htm"
+  },
+  {
+    "number": "22938",
+    "title": "Cyber-Physical Systems",
+    "hebrew": "מערכות סייבר פיזיקליות",
+    "role": "Teaching coordinator",
+    "desc": "Applied, analytical, and design foundations of embedded computers that sense and control the physical world through feedback loops — from robotics to the Internet of Things. Includes a hands-on lab.",
+    "meta": ["M.Sc.", "4 credit points", "Computer Science", "Lab"],
+    "url": "https://www.openu.ac.il/courses/22938.htm"
+  }
+]

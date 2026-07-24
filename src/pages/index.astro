@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+import pubs from '../data/publications.json';
+import courses from '../data/courses.json';
+
+const base = import.meta.env.BASE_URL;
+const asset = (p) => `${base.replace(/\/$/, '')}/${p.replace(/^\//, '')}`;
+const photo = asset('hadar-profile.jpg');
+const typeLabel = { conf: 'Conf', journal: 'Journal', preprint: 'Preprint' };
+
+const boldAuthors = (authors) =>
+  authors.replaceAll(site.authorHighlight, `<strong>${site.authorHighlight}</strong>`);
+
+const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
+  day: 'numeric', month: 'short', year: 'numeric',
+});
+---
+<Base
+  title={`Dr. ${site.name} — ${site.field}`}
+  description={`${site.name}, researcher and lecturer in ${site.field} at the Open University of Israel. Publications, teaching, and contact.`}
+>
+  <header class="nav">
+    <div class="wrap nav-in">
+      <a class="brand" href="#top">
+        <span class="mono-badge">HCD</span>
+        <span>{site.name}<small>{site.field}</small></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-tools">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme" aria-label="Toggle light/dark theme">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <div class="hero">
+      <canvas id="net" class="hero-net" aria-hidden="true"></canvas>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">{site.eyebrow}</span>
+          <h1 set:html={site.nameHtml}></h1>
+          <div class="heb">{site.hebrewName}</div>
+          <div class="role"><b>{site.field}</b> — {site.tagline}</div>
+          <div class="inst">{site.institution}</div>
+          <p class="lead">{site.lead}</p>
+          <div class="hero-cta">
+            <a class="btn primary" href="#publications">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              View Publications
+            </a>
+            <a class="btn" href={site.scholarUrl} target="_blank" rel="noopener">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.9V17"></path><path d="M5 12.5V17a7 5 0 0 0 14 0v-4.5"></path></svg>
+              Google Scholar
+            </a>
+            <a class="btn" href="#contact">
+              <svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 6 8 6 8-6"></path></svg>
+              Contact
+            </a>
+          </div>
+        </div>
+        <div class="portrait">
+          <div class="frame">
+            <img class="photo" src={photo} alt={`Dr. ${site.name}`} width="600" height="600" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="wrap">
+        <div class="sec-head"><span class="sec-num">01</span><h2>About</h2></div>
+        <div class="about-grid">
+          <div class="bio">
+            {site.bio.map((p, i) =>
+              i === site.bio.length - 1 ? <p><em>{p}</em></p> : <p>{p}</p>
+            )}
+            <div class="tags">
+              {site.interests.map((t) => <span class="tag">{t}</span>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="wrap">
+        <div class="sec-head"><span class="sec-num">02</span><h2>Publications</h2></div>
+        <span class="pub-note"><span class="dot"></span> Synced from Google Scholar · last updated {updated}</span>
+        <div class="filters">
+          <span class="chip on" data-f="all">All</span>
+          <span class="chip" data-f="journal">Journal</span>
+          <span class="chip" data-f="conf">Conference</span>
+        </div>
+
+        {pubs.items.map((p) => (
+          <div class="pub" data-t={p.type}>
+            <div class="yr">{p.year}</div>
+            <div>
+              <div class="ti">{p.title}</div>
+              <div class="au" set:html={boldAuthors(p.authors)}></div>
+              <div class="ve"><span class="type-badge">{typeLabel[p.type] ?? p.type}</span>{p.venue}</div>
+              <div class="links">
+                <a href={p.url} target="_blank" rel="noopener">Scholar</a>
+              </div>
+            </div>
+            <div class="cites"><div class="n">{p.citations}</div><div class="l">cites</div></div>
+          </div>
+        ))}
+
+        <div class="pub-more">
+          <a class="btn" href={pubs.profileUrl} target="_blank" rel="noopener">View full publication list on Google Scholar →</a>
+        </div>
+        <p class="pub-disclaimer">Records from her Google Scholar profile — the live site keeps these updated automatically.</p>
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching">
+      <div class="wrap">
+        <div class="sec-head"><span class="sec-num">03</span><h2>Teaching</h2></div>
+        <p style="color:var(--muted);max-width:60ch;margin:0 0 4px">Graduate courses at The Open University of Israel. Each card links to the official course page and syllabus.</p>
+        <div class="courses">
+          {courses.map((c) => (
+            <a class="course card" href={c.url} target="_blank" rel="noopener">
+              <div class="course-top">
+                <span class="course-no">{c.number}</span>
+                <span class="course-role">{c.role}</span>
+              </div>
+              <h3 class="course-ti">{c.title}</h3>
+              <div class="course-heb">{c.hebrew}</div>
+              <p class="course-desc">{c.desc}</p>
+              <div class="course-meta">
+                {c.meta.map((m) => <span class="cmeta">{m}</span>)}
+              </div>
+              <span class="course-link">View course &amp; syllabus →</span>
+            </a>
+          ))}
+        </div>
+        <p class="mono-note">Dept. of Mathematics &amp; Computer Science · course developed by Prof. Elishai Ezra Tsur</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="sec-head"><span class="sec-num">04</span><h2>Contact</h2></div>
+        <div class="contact-grid">
+          <div>
+            <a class="ci" href={`mailto:${site.email}`} style="border-bottom:1px solid var(--line-soft)">
+              <span class="k"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"></path><path d="m4 6 8 6 8-6"></path></svg></span>
+              <span><span class="lbl">Email</span><span class="val" style="display:block">{site.email}</span></span>
+            </a>
+            <div class="ci"><span class="k"><svg class="ic" viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span><div><div class="lbl">Office</div><div class="val">{site.office}</div></div></div>
+            <div class="ci"><span class="k"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span><div><div class="lbl">Office hours</div><div class="val">{site.officeHours}</div></div></div>
+          </div>
+          <div>
+            <p style="color:var(--muted);margin-top:0">{site.contactBlurb}</p>
+            <div class="social">
+              {Object.entries(site.links).map(([label, url]) => (
+                <a class="btn" href={url} target="_blank" rel="noopener">{label}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot-in">
+      <span>© {new Date().getFullYear()} {site.name} · {site.field}</span>
+      <span>The Open University of Israel</span>
+    </div>
+  </footer>
+
+  <script is:inline>
+    (function () {
+      var root = document.documentElement;
+      function current() {
+        return root.getAttribute('data-theme') ||
+          (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+      }
+      var themeBtn = document.getElementById('themeBtn');
+      if (themeBtn) themeBtn.addEventListener('click', function () {
+        root.setAttribute('data-theme', current() === 'dark' ? 'light' : 'dark');
+        setTimeout(resize, 50);
+      });
+
+      document.querySelectorAll('.chip').forEach(function (c) {
+        c.addEventListener('click', function () {
+          document.querySelectorAll('.chip').forEach(function (x) { x.classList.remove('on'); });
+          c.classList.add('on');
+          var f = c.dataset.f;
+          document.querySelectorAll('.pub').forEach(function (p) {
+            p.style.display = (f === 'all' || p.dataset.t === f) ? '' : 'none';
+          });
+        });
+      });
+
+      var cv = document.getElementById('net');
+      if (!cv) return;
+      var ctx = cv.getContext('2d'), W, H, DPR;
+      var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+      var nodes = [], edges = [], pulses = [];
+      function accent() { return getComputedStyle(root).getPropertyValue('--spike').trim() || '#17968D'; }
+      function build() {
+        nodes = []; edges = []; pulses = [];
+        var n = 22;
+        for (var i = 0; i < n; i++) nodes.push({ x: Math.random(), y: Math.random(), vx: (Math.random() - .5) * .0006, vy: (Math.random() - .5) * .0006 });
+        for (var a = 0; a < n; a++) for (var b = a + 1; b < n; b++) {
+          var dx = nodes[a].x - nodes[b].x, dy = nodes[a].y - nodes[b].y;
+          if (Math.sqrt(dx * dx + dy * dy) < .30) edges.push([a, b]);
+        }
+      }
+      function resize() {
+        DPR = Math.min(devicePixelRatio || 1, 2);
+        var r = cv.getBoundingClientRect(); W = r.width; H = r.height;
+        cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      }
+      function spawnPulse() {
+        if (edges.length === 0) return;
+        var e = edges[(Math.random() * edges.length) | 0];
+        pulses.push({ e: e, t: 0, sp: .006 + Math.random() * .01 });
+      }
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        var col = accent();
+        for (var i = 0; i < edges.length; i++) {
+          var A = nodes[edges[i][0]], B = nodes[edges[i][1]];
+          ctx.strokeStyle = col; ctx.globalAlpha = .10; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(A.x * W, A.y * H); ctx.lineTo(B.x * W, B.y * H); ctx.stroke();
+        }
+        for (var j = 0; j < nodes.length; j++) {
+          var nd = nodes[j];
+          if (!reduce) {
+            nd.x += nd.vx; nd.y += nd.vy;
+            if (nd.x < .05 || nd.x > .95) nd.vx *= -1; if (nd.y < .05 || nd.y > .95) nd.vy *= -1;
+          }
+          ctx.globalAlpha = .55; ctx.fillStyle = col;
+          ctx.beginPath(); ctx.arc(nd.x * W, nd.y * H, 1.8, 0, 7); ctx.fill();
+        }
+        for (var k = pulses.length - 1; k >= 0; k--) {
+          var p = pulses[k]; p.t += p.sp;
+          if (p.t >= 1) { pulses.splice(k, 1); continue; }
+          var a = nodes[p.e[0]], b = nodes[p.e[1]];
+          var x = (a.x + (b.x - a.x) * p.t) * W, y = (a.y + (b.y - a.y) * p.t) * H;
+          ctx.globalAlpha = .9; ctx.fillStyle = col;
+          ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 7); ctx.fill();
+          ctx.globalAlpha = .25; ctx.beginPath(); ctx.arc(x, y, 6, 0, 7); ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+        if (!reduce) requestAnimationFrame(draw);
+      }
+      build(); resize(); draw();
+      addEventListener('resize', resize);
+      if (!reduce) setInterval(spawnPulse, 650);
+      else { spawnPulse(); spawnPulse(); draw(); }
+    })();
+  </script>
+</Base>
