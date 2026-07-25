@@ -52,16 +52,18 @@ email) and **Courses**. Saving commits to the repo and the site republishes auto
 
 ### Giving Hadar access (one-time)
 
-1. Add her GitHub account as a repo collaborator: repo → **Settings → Collaborators → Add people**
-   (so only she and the owner can edit).
-2. She creates a **fine-grained personal access token**: GitHub → Settings → Developer settings →
-   **Fine-grained tokens** → *Repository access:* only `hadar-cohen-duwek` → *Permissions:*
-   **Contents → Read and write**. Copy the token.
+Add her GitHub account as a repo collaborator (repo → **Settings → Collaborators → Add people**)
+so only she and the owner can edit, and she accepts the invite.
+
+One-click **"Sign in with GitHub"** is enabled via a Sveltia CMS Authenticator Cloudflare
+Worker — its URL is set as `base_url` in [`public/admin/config.yml`](public/admin/config.yml),
+backed by a GitHub OAuth App (client ID/secret live only in the worker).
 
 ### Editing
 
 1. Open the site's `/admin` page.
-2. Click **Sign in with Token** and paste the token (browsers remember it).
+2. Click **Sign in with GitHub** and approve (a "Sign in with Token" option is also on the
+   same screen as a fallback).
 3. Edit the fields, click **Save/Publish** → the change commits and the site rebuilds (~1 min).
 
 Content still lives as plain files if you prefer editing directly:
