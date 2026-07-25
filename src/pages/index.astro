@@ -23,7 +23,7 @@ const preview = process.env.SITE_LIVE !== 'true';
 ---
 <Base
   title={preview ? 'Coming soon — Hadar Cohen Duwek' : `Dr. ${site.name} — ${site.field}`}
-  description={`${site.name}, researcher and lecturer in ${site.field} at the Open University of Israel. Publications, teaching, and contact.`}
+  description={preview ? 'This site is coming soon.' : `${site.name}, researcher and lecturer in ${site.field} at the Open University of Israel. Publications, teaching, and contact.`}
   noindex={preview}
 >
   {preview ? (
