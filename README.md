@@ -90,16 +90,28 @@ Without the secret the sync is skipped and the committed `publications.json` is 
 the site never breaks. Trigger a manual refresh anytime from the Actions tab
 ("Deploy to GitHub Pages" → Run workflow), or locally with `SERPAPI_KEY=… npm run sync:scholar`.
 
-## Deploying / taking offline
+## Publishing / launch switch
 
-- **Publish:** re-enable the workflow (`gh workflow enable deploy.yml`) and Pages
-  (Settings → Pages → Source: GitHub Actions), then push.
-- **Unpublish:** the site is currently **offline** — Pages is unpublished and the deploy
-  workflow is disabled.
+The site deploys automatically, but the **homepage is gated** by a launch flag so the
+public profile isn't live yet — while the `/admin` editor is:
+
+- **Now (pre-launch):** the homepage is a private "coming soon" placeholder (no-index).
+  The `/admin` editor is fully live so Hadar can start editing content.
+- **To launch (reveal the real profile):**
+  ```bash
+  gh variable set SITE_LIVE --body true
+  gh workflow run deploy.yml
+  ```
+- **To hide the profile again:** `gh variable delete SITE_LIVE` (or set `false`), then re-run.
+- **To take everything fully offline:** `gh workflow disable deploy.yml` and unpublish Pages
+  (`gh api -X DELETE repos/roieco1/hadar-cohen-duwek/pages`).
+
+Locally, `SITE_LIVE=true npm run build` previews the real site; the default build shows the placeholder.
 
 ## Status
 
-✅ Site + editing CMS complete (build, deploy pipeline, Scholar sync, 404, `/admin`) ·
-currently **offline** while content is finalized · ⏳ next: finalize content and launch.
+✅ Everything built (site, deploy pipeline, Scholar sync, 404, `/admin` CMS) · **published in
+pre-launch mode**: homepage shows "coming soon", `/admin` editor is live for Hadar · ⏳ next:
+finalize content, then flip `SITE_LIVE=true` to launch.
 Awaiting from Hadar: final bio + CV, ORCID/GitHub links, confirmation of her role on course 22938.
 Original design mockup: [`design/mockup-v1.html`](design/mockup-v1.html).

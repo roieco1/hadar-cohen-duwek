@@ -15,11 +15,30 @@ const boldAuthors = (authors) =>
 const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
   day: 'numeric', month: 'short', year: 'numeric',
 });
+
+// Pre-launch: the homepage shows a private "coming soon" placeholder until the
+// SITE_LIVE build variable is set to "true" (see .github/workflows/deploy.yml).
+// The /admin editor is unaffected and works in both modes.
+const preview = process.env.SITE_LIVE !== 'true';
 ---
 <Base
-  title={`Dr. ${site.name} — ${site.field}`}
+  title={preview ? 'Coming soon — Hadar Cohen Duwek' : `Dr. ${site.name} — ${site.field}`}
   description={`${site.name}, researcher and lecturer in ${site.field} at the Open University of Israel. Publications, teaching, and contact.`}
+  noindex={preview}
 >
+  {preview ? (
+    <main class="wrap" style="min-height:100vh;display:grid;place-items:center;text-align:center;padding:80px 28px">
+      <div style="max-width:34rem">
+        <span class="mono-badge" style="width:58px;height:58px;font-size:1.15rem;margin:0 auto 28px">HCD</span>
+        <p class="eyebrow">Computational Neuroscience</p>
+        <h1 style="font-size:clamp(2rem,5vw,2.9rem);margin:.7rem 0 1.1rem">Coming soon</h1>
+        <p style="color:var(--muted);font-size:1.05rem;max-width:34ch;margin:0 auto">
+          The academic profile of Dr. Hadar Cohen Duwek is being prepared and will be available here soon.
+        </p>
+      </div>
+    </main>
+  ) : (
+  <Fragment>
   <header class="nav">
     <div class="wrap nav-in">
       <a class="brand" href="#top">
@@ -268,4 +287,6 @@ const updated = new Date(pubs.lastUpdated).toLocaleDateString('en-GB', {
       else { spawnPulse(); spawnPulse(); draw(); }
     })();
   </script>
+  </Fragment>
+  )}
 </Base>
