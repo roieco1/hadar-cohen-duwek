@@ -3,15 +3,14 @@
   "hebrewName": "ד״ר הדר כהן דוויק",
   "eyebrow": "Researcher · Lecturer",
   "field": "Computational Neuroscience",
-  "tagline": "spiking neural networks & neuromorphic computation",
+  "tagline": "spiking neural networks & neuromorphic engineering",
   "institution": "The Open University of Israel · Dept. of Mathematics & Computer Science",
-  "lead": "Building brain-inspired models of perception and learning — bridging biological neural dynamics and the hardware that could one day run them.",
+  "lead": "Building brain-inspired models of visual perception, bridging biological neural dynamics and event-based computation.",
   "photo": "hadar-profile.jpg",
-  "authorHighlight": "Cohen Duwek",
   "bio": [
-    "Dr. Hadar Cohen Duwek is a researcher and lecturer in computational neuroscience, studying how the brain represents and learns from sensory information — and how those principles can be translated into efficient, brain-inspired computing.",
-    "Her work spans spiking neural networks, neuromorphic hardware, and models of perception, combining theory, simulation, and close attention to biological plausibility. She teaches and mentors students at the Open University of Israel, where she leads research bridging neuroscience and machine learning.",
-    "Placeholder bio — final wording and full CV to come."
+    "My research focuses on computational models of the retina and early visual system, including the mechanisms underlying color perception, motion processing, adaptation, visual illusions, and perceptual filling-in. I investigate how local neural signals are integrated into stable and meaningful internal representations.",
+    "I work extensively with event cameras, which capture visual changes asynchronously rather than recording conventional image frames. My research explores how event-based signals can support color perception, motion analysis, image reconstruction, and biologically inspired visual processing.",
+    "I also develop neuromorphic and spiking models that connect neural mechanisms with computational function. The broader goal is to understand biological vision while translating its principles into efficient, interpretable, and robust artificial vision systems."
   ],
   "interests": [
     "Spiking Neural Networks",
@@ -26,7 +25,14 @@
   "contactBlurb": "For research collaborations, student inquiries, talks, and media — email is the best way to reach me. Professional profiles below.",
   "scholarUrl": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en",
   "links": [
-    { "label": "Google Scholar", "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en" },
-    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/hadar-cohen-duwek-0424224/" }
-  ]
+    {
+      "label": "Google Scholar",
+      "url": "https://scholar.google.com/citations?user=0kq7pdcAAAAJ&hl=en"
+    },
+    {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/hadar-cohen-duwek-0424224/"
+    }
+  ],
+  "authorHighlight": "Cohen Duwek"
 }
