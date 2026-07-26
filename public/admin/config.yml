@@ -45,7 +45,6 @@ collections:
             widget: list
             field: { label: Interest, name: interest, widget: string }
           - { label: Email, name: email, widget: string }
-          - { label: Office, name: office, widget: string }
           - { label: Contact blurb, name: contactBlurb, widget: text }
           - { label: Google Scholar URL, name: scholarUrl, widget: string }
           - label: Professional links
