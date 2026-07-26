@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://roieco1.github.io/hadar-cohen-duwek/sitemap.xml
