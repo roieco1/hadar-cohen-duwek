@@ -112,8 +112,8 @@ Locally, `SITE_LIVE=true npm run build` previews the real site; the default buil
 
 ## Status
 
-✅ Everything built (site, deploy pipeline, Scholar sync, 404, `/admin` CMS) · **published in
-pre-launch mode**: homepage shows "coming soon", `/admin` editor is live for Hadar · ⏳ next:
-finalize content, then flip `SITE_LIVE=true` to launch.
-Awaiting from Hadar: final bio + CV, ORCID/GitHub links, confirmation of her role on course 22938.
+✅ **Live** at https://roieco1.github.io/hadar-cohen-duwek/ — full site, `/admin` CMS, and
+deploy pipeline all in place. Hadar edits in `/admin` and changes publish automatically (~1 min).
+Optional next: add `SERPAPI_KEY` to activate the auto Scholar sync; ORCID/GitHub links; a CV;
+confirm her role on course 22938; a custom domain.
 Original design mockup: [`design/mockup-v1.html`](design/mockup-v1.html).
